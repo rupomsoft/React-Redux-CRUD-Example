@@ -3,9 +3,8 @@ import store from "../redux/store/store";
 import {setProductList} from "../redux/state/product-state-slice";
 
 const BaseURL="https://crud.teamrabbil.com/api/v1"
-export async function CreateRequest(){
+export async function CreateRequest(PostBody){
   let URL=BaseURL+"/CreateProduct";
-  let PostBody={}
   let result= await axios.post(URL,PostBody);
   if(result.status===200 && result.data['status']==="success"){
     return true;

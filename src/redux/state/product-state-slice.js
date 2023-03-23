@@ -16,6 +16,12 @@ export const productStateSlice=createSlice({
     reducers:{
         setProductList:(state,action)=>{
             state.List=action.payload
+        },
+        OnChangeProductInput:(state,action)=>{
+            state.FormValue[`${action.payload.Name}`]=action.payload.Value;
+        },
+        ResetProductFormValue:(state,action)=>{
+            Object.keys(state.FormValue).forEach((i) => state.FormValue[i] = "");
         }
     }
 
@@ -24,6 +30,6 @@ export const productStateSlice=createSlice({
 
 
 
-export const {setProductList}=productStateSlice.actions
+export const {setProductList,OnChangeProductInput}=productStateSlice.actions
 export default  productStateSlice.reducer;
 
