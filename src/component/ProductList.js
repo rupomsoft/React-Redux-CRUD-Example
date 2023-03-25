@@ -1,6 +1,7 @@
 import React, {useEffect} from 'react';
-import {ReadRequest} from "../api/APIRequest";
+import {DeleteRequest, ReadRequest} from "../api/APIRequest";
 import {useSelector} from "react-redux";
+import {Link, NavLink} from "react-router-dom";
 
 const ProductList = () => {
 
@@ -9,10 +10,14 @@ const ProductList = () => {
         (async ()=>{
               await ReadRequest();
          })()
-    })
-
+    },[])
 
     let DataList=useSelector((state)=>(state.product.List));
+
+    const DeleteItem=async (_id) => {
+      let result= await DeleteRequest(_id);
+      await ReadRequest();
+    }
 
     return (
         <div>
@@ -28,6 +33,8 @@ const ProductList = () => {
                                     <th>Qty</th>
                                     <th>TotalPrice</th>
                                     <th>UnitPrice</th>
+                                    <th>Edit</th>
+                                    <th>Delete</th>
                                 </tr>
                             </thead>
 
@@ -41,6 +48,8 @@ const ProductList = () => {
                                             <td>{item['Qty']}</td>
                                             <td>{item['TotalPrice']}</td>
                                             <td>{item['UnitPrice']}</td>
+                                            <td><NavLink to={"/create?id="+item['_id']} className="btn btn-primary btn-sm">Edit</NavLink></td>
+                                            <td><button onClick={()=>{DeleteItem(item['_id'])}} className="btn btn-danger btn-sm">Delete</button></td>
                                         </tr>
                                     )
                                 })
