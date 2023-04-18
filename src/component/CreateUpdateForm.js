@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {OnChangeProductInput} from "../redux/state/product-state-slice";
+import {OnChangeProductInput, ResetProductFormValue} from "../redux/state/product-state-slice";
 import store from "../redux/store/store";
 import {useSelector} from "react-redux";
 import {CreateRequest, DetailsRequest, ReadRequest} from "../api/APIRequest";
@@ -21,6 +21,9 @@ const CreateUpdateForm = () => {
             (async ()=>{
                 await DetailsRequest(id);
             })()
+        }
+        else {
+            store.dispatch(ResetProductFormValue())
         }
     },[])
 
@@ -48,7 +51,7 @@ const CreateUpdateForm = () => {
             toast.error("Unit Price Required!")
         }
         else {
-            await CreateRequest(FormValue);
+            await CreateRequest(FormValue,ObjectID);
             navigate("/");
         }
 

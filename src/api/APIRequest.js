@@ -4,9 +4,16 @@ import {OnChangeProductInput, setProductList} from "../redux/state/product-state
 import {HideLoader, ShowLoader} from "../redux/state/settings-slice";
 
 const BaseURL="https://crud.teamrabbil.com/api/v1"
-export async function CreateRequest(PostBody){
+export async function CreateRequest(PostBody,ObjectID){
   store.dispatch(ShowLoader());
+
   let URL=BaseURL+"/CreateProduct";
+
+  if(ObjectID!==0){
+    URL=BaseURL+"/UpdateProduct/"+ObjectID;
+  }
+
+
   let result= await axios.post(URL,PostBody);
   store.dispatch(HideLoader())
   if(result.status===200 && result.data['status']==="success"){

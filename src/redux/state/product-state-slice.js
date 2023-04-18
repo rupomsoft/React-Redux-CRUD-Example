@@ -30,6 +30,6 @@ export const productStateSlice=createSlice({
 
 
 
-export const {setProductList,OnChangeProductInput}=productStateSlice.actions
+export const {setProductList,OnChangeProductInput,ResetProductFormValue}=productStateSlice.actions
 export default  productStateSlice.reducer;
 
